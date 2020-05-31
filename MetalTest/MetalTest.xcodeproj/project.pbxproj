@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B7B70CD2483D06400A0D86B /* TriangleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7B70CC2483D06400A0D86B /* TriangleViewController.m */; };
+		3B7B70D02483D7A000A0D86B /* Triangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3B7B70CF2483D7A000A0D86B /* Triangle.metal */; };
 		3BA01F1E2482CFAD002F82DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA01F1D2482CFAD002F82DF /* AppDelegate.m */; };
 		3BA01F242482CFAD002F82DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA01F232482CFAD002F82DF /* ViewController.m */; };
 		3BA01F292482CFB2002F82DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BA01F282482CFB2002F82DF /* Assets.xcassets */; };
@@ -14,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B7B70CB2483D06400A0D86B /* TriangleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleViewController.h; sourceTree = "<group>"; };
+		3B7B70CC2483D06400A0D86B /* TriangleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleViewController.m; sourceTree = "<group>"; };
+		3B7B70CF2483D7A000A0D86B /* Triangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Triangle.metal; sourceTree = "<group>"; };
 		3BA01F192482CFAD002F82DF /* MetalTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BA01F1C2482CFAD002F82DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3BA01F1D2482CFAD002F82DF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -35,6 +40,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B7B70C72483CFD600A0D86B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				3B7B70C92483CFF100A0D86B /* utils */,
+				3B7B70CA2483CFF700A0D86B /* tests */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		3B7B70C92483CFF100A0D86B /* utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		3B7B70CA2483CFF700A0D86B /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				3B7B70CE2483D21B00A0D86B /* 1. 三角形 */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		3B7B70CE2483D21B00A0D86B /* 1. 三角形 */ = {
+			isa = PBXGroup;
+			children = (
+				3B7B70CB2483D06400A0D86B /* TriangleViewController.h */,
+				3B7B70CC2483D06400A0D86B /* TriangleViewController.m */,
+				3B7B70CF2483D7A000A0D86B /* Triangle.metal */,
+			);
+			path = "1. 三角形";
+			sourceTree = "<group>";
+		};
 		3BA01F102482CFAD002F82DF = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +93,7 @@
 		3BA01F1B2482CFAD002F82DF /* MetalTest */ = {
 			isa = PBXGroup;
 			children = (
+				3B7B70C72483CFD600A0D86B /* src */,
 				3BA01F1C2482CFAD002F82DF /* AppDelegate.h */,
 				3BA01F1D2482CFAD002F82DF /* AppDelegate.m */,
 				3BA01F222482CFAD002F82DF /* ViewController.h */,
@@ -133,7 +173,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B7B70CD2483D06400A0D86B /* TriangleViewController.m in Sources */,
 				3BA01F242482CFAD002F82DF /* ViewController.m in Sources */,
+				3B7B70D02483D7A000A0D86B /* Triangle.metal in Sources */,
 				3BA01F1E2482CFAD002F82DF /* AppDelegate.m in Sources */,
 				3BA01F2F2482CFB2002F82DF /* main.m in Sources */,
 			);
