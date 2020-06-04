@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterChainViewController">
+            <connections>
+                <outlet property="renderView" destination="8XM-V4-WGR" id="FXh-Wl-lou"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8XM-V4-WGR">
+                    <rect key="frame" x="0.0" y="44" width="414" height="738"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sRa-iy-9Rk">
+                    <rect key="frame" x="0.0" y="782" width="414" height="80"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="灰度程度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdL-Hk-kLg">
+                            <rect key="frame" x="18" y="4.5" width="70" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="EJT-MY-lZA">
+                            <rect key="frame" x="106" y="0.0" width="310" height="31"/>
+                            <connections>
+                                <action selector="onGraySliderChanged:" destination="-1" eventType="valueChanged" id="ZXv-vv-TI4"/>
+                            </connections>
+                        </slider>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="亮度程度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dpm-ay-OHl">
+                            <rect key="frame" x="18" y="54.5" width="70" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="TJ4-fb-MBx">
+                            <rect key="frame" x="106" y="50" width="310" height="31"/>
+                            <connections>
+                                <action selector="onBrightnessSliderChanged:" destination="-1" eventType="valueChanged" id="XLB-DR-cmb"/>
+                            </connections>
+                        </slider>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="TJ4-fb-MBx" secondAttribute="trailing" id="4Pe-Ho-Gkd"/>
+                        <constraint firstAttribute="trailing" secondItem="EJT-MY-lZA" secondAttribute="trailing" id="7Vz-s9-NdY"/>
+                        <constraint firstItem="EJT-MY-lZA" firstAttribute="centerY" secondItem="jdL-Hk-kLg" secondAttribute="centerY" id="9X6-hl-pRW"/>
+                        <constraint firstItem="jdL-Hk-kLg" firstAttribute="leading" secondItem="sRa-iy-9Rk" secondAttribute="leading" constant="18" id="B5X-fH-HNf"/>
+                        <constraint firstItem="EJT-MY-lZA" firstAttribute="leading" secondItem="jdL-Hk-kLg" secondAttribute="trailing" constant="20" id="Bys-Q9-Lyf"/>
+                        <constraint firstItem="EJT-MY-lZA" firstAttribute="top" secondItem="sRa-iy-9Rk" secondAttribute="top" id="HRI-Dk-b8M"/>
+                        <constraint firstItem="Dpm-ay-OHl" firstAttribute="centerY" secondItem="TJ4-fb-MBx" secondAttribute="centerY" id="LCU-tA-TLP"/>
+                        <constraint firstItem="TJ4-fb-MBx" firstAttribute="top" secondItem="EJT-MY-lZA" secondAttribute="bottom" constant="20" id="TBO-j3-5wy"/>
+                        <constraint firstItem="Dpm-ay-OHl" firstAttribute="leading" secondItem="sRa-iy-9Rk" secondAttribute="leading" constant="18" id="Zn6-yZ-YLK"/>
+                        <constraint firstAttribute="bottom" secondItem="TJ4-fb-MBx" secondAttribute="bottom" id="h2j-Ca-vBe"/>
+                        <constraint firstItem="TJ4-fb-MBx" firstAttribute="leading" secondItem="Dpm-ay-OHl" secondAttribute="trailing" constant="20" id="vdD-Tl-ysB"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="sRa-iy-9Rk" secondAttribute="trailing" id="0gk-Rw-AAn"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="bottom" secondItem="sRa-iy-9Rk" secondAttribute="bottom" id="YBt-1o-IRU"/>
+                <constraint firstItem="8XM-V4-WGR" firstAttribute="top" secondItem="Q5M-cg-NOt" secondAttribute="top" id="czC-eI-VzE"/>
+                <constraint firstItem="8XM-V4-WGR" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="gKa-IP-qlC"/>
+                <constraint firstItem="sRa-iy-9Rk" firstAttribute="leading" secondItem="Q5M-cg-NOt" secondAttribute="leading" id="iqG-QL-JZs"/>
+                <constraint firstItem="sRa-iy-9Rk" firstAttribute="top" secondItem="8XM-V4-WGR" secondAttribute="bottom" id="lbC-aF-FJB"/>
+                <constraint firstItem="Q5M-cg-NOt" firstAttribute="trailing" secondItem="8XM-V4-WGR" secondAttribute="trailing" id="wbq-GP-bUH"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="Q5M-cg-NOt"/>
+            <point key="canvasLocation" x="139" y="154"/>
+        </view>
+    </objects>
+</document>
