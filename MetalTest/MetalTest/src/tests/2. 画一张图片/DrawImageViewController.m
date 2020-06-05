@@ -88,7 +88,7 @@ static const UInt32 indices[] = {
     CGFloat scale = self.view.contentScaleFactor;
     _layer.drawableSize = CGSizeApplyAffineTransform(self.view.bounds.size, CGAffineTransformMakeScale(scale, scale));
     
-    [self.view.layer addSublayer: _layer];
+    [self.view.layer insertSublayer: _layer atIndex: 0];
 }
 
 - (void)setupRenderTarget {
@@ -122,7 +122,7 @@ static const UInt32 indices[] = {
 
 - (void)loadTexture {
     UIImage *image = [UIImage imageNamed: @"avatar.JPG"];
-    _texutre = [MetalUtils loadImageTexture: image device: _device];
+    _texutre = [MetalUtils loadImageTexture: image device: _device usage: MTLTextureUsageShaderRead];
 }
 
 - (void)setupIndexBuffer {

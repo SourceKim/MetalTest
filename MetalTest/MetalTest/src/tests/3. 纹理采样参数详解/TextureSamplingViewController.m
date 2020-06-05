@@ -156,7 +156,7 @@ static const UInt32 indices[] = {
 
 - (void)loadTexture {
     UIImage *image = [UIImage imageNamed: @"avatar.JPG"];
-    _texutre = [MetalUtils loadImageTexture: image device: _device];
+    _texutre = [MetalUtils loadImageTexture: image device: _device usage: MTLTextureUsageShaderRead];
 }
 
 - (void)setupIndexBuffer {

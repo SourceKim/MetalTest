@@ -10,7 +10,14 @@
 
 #import "MetalUtils.h"
 
-static const float vertices[] = {
+static const float grayVertices[] = {
+    -1, -1, 0, 1, // 左下角
+    1, -1, 0, 1, // 右下角
+    -1, 1, 0, 1, // 左上角
+    1, 1, 0, 1, // 右上角
+};
+
+static const float brightnessVertices[] = {
     -0.5, -0.5, 0, 1, // 左下角
     0.5, -0.5, 0, 1, // 右下角
     -0.5, 0.5, 0, 1, // 左上角
@@ -42,13 +49,18 @@ static const UInt32 indices[] = {
     
     CAMetalLayer *_layer;
     
-    MTLRenderPassDescriptor *_renderTargetDesc;
+    MTLRenderPassDescriptor *_grayRenderTargetDesc;
+    MTLRenderPassDescriptor *_BrightnessRenderTargetDesc;
     
-    id<MTLRenderPipelineState> _renderPipelineState;
+    id<MTLRenderPipelineState> _grayRenderPipelineState;
+    id<MTLRenderPipelineState> _brightnessRenderPipelineState;
     
-    id<MTLTexture> _texutre;
+    id<MTLTexture> _sourceTexutre;
+    id<MTLTexture> _grayResultTexutre;
     
     id<MTLBuffer> _indexBuffer;
+    
+    float _grayIntensity, _brightness;
 }
 
 #pragma mark - Life Cycle
@@ -56,6 +68,8 @@ static const UInt32 indices[] = {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _grayIntensity = 0;
+    _brightness = 0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -75,11 +89,13 @@ static const UInt32 indices[] = {
 #pragma mark - Response
 
 - (IBAction)onGraySliderChanged:(id)sender {
-    
+    _grayIntensity = ((UISlider *)sender).value;
+    [self render];
 }
 
 - (IBAction)onBrightnessSliderChanged:(id)sender {
-    
+    _brightness = ((UISlider *)sender).value;
+    [self render];
 }
 
 #pragma mark - Metal
@@ -96,46 +112,72 @@ static const UInt32 indices[] = {
     _layer = [CAMetalLayer layer];
     _layer.pixelFormat = MTLPixelFormatBGRA8Unorm;
     _layer.framebufferOnly = true;
-    _layer.frame = self.view.bounds;
+    _layer.frame = self.renderView.bounds;
     
-    CGFloat scale = self.view.contentScaleFactor;
-    _layer.drawableSize = CGSizeApplyAffineTransform(self.view.bounds.size, CGAffineTransformMakeScale(scale, scale));
+    CGFloat scale = self.renderView.contentScaleFactor;
+    _layer.drawableSize = CGSizeApplyAffineTransform(self.renderView.bounds.size, CGAffineTransformMakeScale(scale, scale));
     
-    [self.view.layer addSublayer: _layer];
+    [self.renderView.layer insertSublayer: _layer atIndex: 0];
 }
 
 - (void)setupRenderTarget {
     
-    _renderTargetDesc = [MTLRenderPassDescriptor renderPassDescriptor];
-    MTLRenderPassColorAttachmentDescriptor *colorAttachment = _renderTargetDesc.colorAttachments[0];
+    _grayRenderTargetDesc = [MTLRenderPassDescriptor renderPassDescriptor];
+    MTLRenderPassColorAttachmentDescriptor *colorAttachment = _grayRenderTargetDesc.colorAttachments[0];
 //    colorAttachment.texture = [_layer nextDrawable].texture;
     colorAttachment.loadAction = MTLLoadActionClear;
     colorAttachment.storeAction = MTLStoreActionStore;
     colorAttachment.clearColor = MTLClearColorMake(0, 0, 0, 1);
+    
+    _BrightnessRenderTargetDesc = [MTLRenderPassDescriptor renderPassDescriptor];
+    colorAttachment = _BrightnessRenderTargetDesc.colorAttachments[0];
+    //    colorAttachment.texture = [_layer nextDrawable].texture;
+    colorAttachment.loadAction = MTLLoadActionClear;
+    colorAttachment.storeAction = MTLStoreActionStore;
+    colorAttachment.clearColor = MTLClearColorMake(1, 1, 1, 1);
 }
 
 - (void)setupRenderPipeline {
     
     id<MTLLibrary> library = [_device newDefaultLibrary];
     
-    id<MTLFunction> vertexFunc = [library newFunctionWithName: @"DrawImageVertexShader"];
-    id<MTLFunction> fragmentFunc = [library newFunctionWithName: @"DrawImageFragmentShader"];
+    id<MTLFunction> vertexFunc = [library newFunctionWithName: @"filterChainVertexShader"];
+    id<MTLFunction> grayfragmentFunc = [library newFunctionWithName: @"grayFilterFragmentShader"];
+    id<MTLFunction> brightnessfragmentFunc = [library newFunctionWithName: @"brightnessFilterFragmentShader"];
     
     MTLRenderPipelineDescriptor *pipelineDescriptor = [MTLRenderPipelineDescriptor new];
-    pipelineDescriptor.label = @"Render Pipeline";
+    NSError *err;
+    
+    // Gray pipeline desc
+    pipelineDescriptor.label = @"Gray Render Pipeline";
     pipelineDescriptor.vertexFunction = vertexFunc;
-    pipelineDescriptor.fragmentFunction = fragmentFunc;
+    pipelineDescriptor.fragmentFunction = grayfragmentFunc;
+    pipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatRGBA8Unorm;
+    
+    _grayRenderPipelineState = [_device newRenderPipelineStateWithDescriptor: pipelineDescriptor error: &err];
+    NSAssert(_grayRenderPipelineState != nil, @"Failed to create pipeline state: %@", err);
+    
+    // Brightness pipeline desc
+    pipelineDescriptor.label = @"Brightness Render Pipeline";
+    pipelineDescriptor.vertexFunction = vertexFunc;
+    pipelineDescriptor.fragmentFunction = brightnessfragmentFunc;
     pipelineDescriptor.colorAttachments[0].pixelFormat = _layer.pixelFormat;
     
-    NSError *err;
-    _renderPipelineState = [_device newRenderPipelineStateWithDescriptor: pipelineDescriptor error: &err];
-    
-    NSAssert(_renderPipelineState != nil, @"Failed to create pipeline state: %@", err);
+    _brightnessRenderPipelineState = [_device newRenderPipelineStateWithDescriptor: pipelineDescriptor error: &err];
+    NSAssert(_grayRenderPipelineState != nil, @"Failed to create pipeline state: %@", err);
 }
 
 - (void)loadTexture {
     UIImage *image = [UIImage imageNamed: @"avatar.JPG"];
-    _texutre = [MetalUtils loadImageTexture: image device: _device];
+    _sourceTexutre = [MetalUtils loadImageTexture: image
+                                           device: _device
+                                            usage: MTLTextureUsageShaderRead];
+    
+    CGImageRef cgImage = image.CGImage;
+    _grayResultTexutre = [MetalUtils createEmptyTexture: _device
+                                              WithWidth: CGImageGetWidth(cgImage)
+                                             withHeight: CGImageGetHeight(cgImage)
+                                                  usage: MTLTextureUsageShaderRead | MTLTextureUsageRenderTarget];
 }
 
 - (void)setupIndexBuffer {
@@ -145,16 +187,66 @@ static const UInt32 indices[] = {
                                        options: MTLResourceStorageModeShared];
 }
 
-- (void)render {
+- (void)render_gray {
     
-    id<CAMetalDrawable> currentDrawable = [_layer nextDrawable];
-    _renderTargetDesc.colorAttachments[0].texture = currentDrawable.texture;
+    // 将本次 Command Encoder 和 渲染的目标（MTLTexture）关联起来
+    _grayRenderTargetDesc.colorAttachments[0].texture = _grayResultTexutre;
     
     id<MTLCommandBuffer> commandBuffer = [_queue commandBuffer];
-    commandBuffer.label = @"Command Buffer";
+    commandBuffer.label = @"Gray Command Buffer";
     
-    id<MTLRenderCommandEncoder> encoder = [commandBuffer renderCommandEncoderWithDescriptor: _renderTargetDesc];
-    encoder.label = @"Render Command Encoder";
+    id<MTLRenderCommandEncoder> encoder = [commandBuffer renderCommandEncoderWithDescriptor: _grayRenderTargetDesc];
+    encoder.label = @"Gray Command Encoder";
+    
+    [encoder setViewport: (MTLViewport) {
+        .originX = 0,
+        .originY = 0,
+        .width = _sourceTexutre.width,
+        .height = _sourceTexutre.height,
+        .znear = 0,
+        .zfar = 1
+    }];
+    
+    [encoder setRenderPipelineState: _grayRenderPipelineState];
+    
+    [encoder setVertexBytes: grayVertices
+                     length: sizeof(grayVertices)
+                    atIndex: 0];
+    
+    [encoder setVertexBytes: texCoor
+                     length: sizeof(texCoor)
+                    atIndex: 1];
+    
+    [encoder setFragmentTexture: _sourceTexutre
+                        atIndex: 0];
+    
+    [encoder setFragmentBytes: &_grayIntensity
+                       length: sizeof(float)
+                      atIndex: 0];
+    
+    [encoder drawIndexedPrimitives: MTLPrimitiveTypeTriangleStrip
+                        indexCount: 6
+                         indexType: MTLIndexTypeUInt32
+                       indexBuffer: _indexBuffer
+                 indexBufferOffset: 0];
+    
+    [encoder endEncoding];
+    
+    [commandBuffer commit];
+}
+
+- (void)render_brightness {
+    
+    id<CAMetalDrawable> currentDrawable = [_layer nextDrawable];
+    
+    // 将本次 Command Encoder 和 渲染的目标（Layer 的 texture）关联起来
+    _BrightnessRenderTargetDesc.colorAttachments[0].texture = currentDrawable.texture;
+    
+    id<MTLCommandBuffer> commandBuffer = [_queue commandBuffer];
+    commandBuffer.label = @"Brightness Command Buffer";
+    
+    id<MTLRenderCommandEncoder> encoder = [commandBuffer renderCommandEncoderWithDescriptor: _BrightnessRenderTargetDesc];
+    encoder.label = @"Brightness Command Encoder";
     
     [encoder setViewport: (MTLViewport) {
         .originX = 0,
@@ -165,18 +257,22 @@ static const UInt32 indices[] = {
         .zfar = 1
     }];
     
-    [encoder setRenderPipelineState: _renderPipelineState];
+    [encoder setRenderPipelineState: _brightnessRenderPipelineState];
     
-    [encoder setVertexBytes: vertices
-                     length: sizeof(vertices)
+    [encoder setVertexBytes: brightnessVertices
+                     length: sizeof(brightnessVertices)
                     atIndex: 0];
     
     [encoder setVertexBytes: texCoor
                      length: sizeof(texCoor)
                     atIndex: 1];
     
-    [encoder setFragmentTexture: _texutre
+    [encoder setFragmentTexture: _grayResultTexutre
                         atIndex: 0];
+    
+    [encoder setFragmentBytes: &_brightness
+                       length: sizeof(float)
+                      atIndex: 0];
     
     [encoder drawIndexedPrimitives: MTLPrimitiveTypeTriangleStrip
                         indexCount: 6
@@ -189,6 +285,17 @@ static const UInt32 indices[] = {
     [commandBuffer presentDrawable: currentDrawable];
     
     [commandBuffer commit];
+}
+
+- (void)render {
+    /*
+        1. 先进行灰度的渲染（输入是原图（sourceImage），输出是空白的 MTLTexture）
+     
+        2. 将第一步输出的 MTLTexture 作为 Brightness 的输入，输出到 Layer 的 texture
+     
+     */
+    [self render_gray];
+    [self render_brightness];
 }
 
 @end

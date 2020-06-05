@@ -9,16 +9,33 @@
 
 @implementation MetalUtils
 
++ (nullable id<MTLTexture>)createEmptyTexture: (id<MTLDevice>)device
+                                    WithWidth: (size_t)width
+                                   withHeight: (size_t)height
+                                        usage: (MTLTextureUsage)usage {
+    
+    MTLTextureDescriptor *texDescriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat: MTLPixelFormatRGBA8Unorm width: width height: height mipmapped: false];
+    texDescriptor.usage = usage;
+    
+    id<MTLTexture> texture = [device newTextureWithDescriptor: texDescriptor];
+    
+    return texture;
+}
+
 + (nullable id<MTLTexture>)loadImageTexture: (UIImage *)image
-                            device: (id<MTLDevice>)device {
+                                     device: (id<MTLDevice>)device
+                                      usage: (MTLTextureUsage)usage {
     
     CGImageRef cgImage = image.CGImage;
     if (cgImage == nil) return nil;
-    return [self loadImageTexture_CGImage: cgImage device: device];
+    return [self loadImageTexture_CGImage: cgImage
+                                   device: device
+                                    usage: usage];
 }
 
 + (nullable id<MTLTexture>)loadImageTexture_CGImage: (CGImageRef)cgImage
-                                    device: (id<MTLDevice>)device {
+                                             device: (id<MTLDevice>)device
+                                              usage: (MTLTextureUsage)usage {
     
     size_t width = CGImageGetWidth(cgImage);
     size_t height = CGImageGetHeight(cgImage);
@@ -41,9 +58,10 @@
     CGContextClearRect(ctx, rect);
     CGContextDrawImage(ctx, rect, cgImage);
     
-    MTLTextureDescriptor *texDescriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat: MTLPixelFormatRGBA8Unorm width: width height: height mipmapped: false];
-    
-    id<MTLTexture> texture = [device newTextureWithDescriptor: texDescriptor];
+    id<MTLTexture> texture = [MetalUtils createEmptyTexture: device
+                                                  WithWidth: width
+                                                 withHeight: height
+                                                      usage: usage];
     
     if (texture == nil) return nil;
     

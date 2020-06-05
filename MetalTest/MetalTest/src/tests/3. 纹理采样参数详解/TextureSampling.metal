@@ -15,6 +15,12 @@ typedef struct
 
 } VertexOut;
 
+//constexpr sampler texSampler(
+//                             coord::normalized,
+//                             address::repeat,
+//                             filter::linear
+//                             );
+
 vertex VertexOut
 TextureSamplingVertexShader(
                             uint vertexID [[ vertex_id ]],
@@ -28,12 +34,6 @@ TextureSamplingVertexShader(
     
     return out;
 }
-
-//constexpr sampler texSampler(
-//                             coord::normalized,
-//                             address::repeat,
-//                             filter::linear
-//                             );
 
 fragment float4
 TextureSamplingFragmentShader(
