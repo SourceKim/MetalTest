@@ -33,10 +33,7 @@ NSString * const kCellId = @"cellId";
     _demoArray = @ [
                     @{@"1. 三角形": @"TriangleViewController"},
                     @{@"2. 画一张图片": @"DrawImageViewController"},
-                    @{@"3.1. 纹理详解 - 纹理保持比例（暴力）": @"PreserAspectRatioForceViewController"},
-                    @{@"3.2. 纹理详解 - AVMakeRectWithAspectRatioInsideRect": @"TestAVFoundationAspectRatioViewController"},
-                    @{@"3.3. 纹理详解 - OpenGL ES 实现填充模式": @"OpenGLDisplayFillModeViewController"},
-                    @{@"3.4. 纹理详解 - OpenGL ES 采样模式": @"OpenGLSampleModeViewController"},
+                    @{@"3. 纹理采样参数详解": @"TextureSamplingViewController"},
                     @{@"4. 滤镜链": @"CustomFilterChainViewController"},
                     @{@"5. 三维变换": @"ThreeDimentionTransformViewController"},
                     @{@"6. 旋转的立方体": @"RotatingCubeViewController"},
