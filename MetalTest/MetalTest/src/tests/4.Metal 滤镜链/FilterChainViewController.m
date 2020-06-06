@@ -11,10 +11,10 @@
 #import "MetalUtils.h"
 
 static const float grayVertices[] = {
-    -1, -1, 0, 1, // 左下角
-    1, -1, 0, 1, // 右下角
     -1, 1, 0, 1, // 左上角
     1, 1, 0, 1, // 右上角
+    -1, -1, 0, 1, // 左下角
+    1, -1, 0, 1, // 右下角
 };
 
 static const float brightnessVertices[] = {
