@@ -11,6 +11,7 @@
 		3B6CB7092487A7DC0094E14A /* DrawImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CB7082487A7DC0094E14A /* DrawImageViewController.m */; };
 		3B6CB70C2487A8050094E14A /* avatar.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 3B6CB70B2487A8050094E14A /* avatar.JPG */; };
 		3B6CB70E2487ABD90094E14A /* DrawImage.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3B6CB70D2487ABD90094E14A /* DrawImage.metal */; };
+		3B7094C4248D66D9003CE5B6 /* MetalMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7094C3248D66D9003CE5B6 /* MetalMatrix.m */; };
 		3B7ADA16248938D000CA5AA3 /* TextureSamplingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7ADA12248938D000CA5AA3 /* TextureSamplingViewController.m */; };
 		3B7ADA17248938D000CA5AA3 /* TextureSampling.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3B7ADA13248938D000CA5AA3 /* TextureSampling.metal */; };
 		3B7ADA18248938D000CA5AA3 /* TextureSamplingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B7ADA14248938D000CA5AA3 /* TextureSamplingViewController.xib */; };
@@ -32,6 +33,8 @@
 		3B6CB7082487A7DC0094E14A /* DrawImageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawImageViewController.m; sourceTree = "<group>"; };
 		3B6CB70B2487A8050094E14A /* avatar.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar.JPG; sourceTree = "<group>"; };
 		3B6CB70D2487ABD90094E14A /* DrawImage.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DrawImage.metal; sourceTree = "<group>"; };
+		3B7094C2248D66D9003CE5B6 /* MetalMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetalMatrix.h; sourceTree = "<group>"; };
+		3B7094C3248D66D9003CE5B6 /* MetalMatrix.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MetalMatrix.m; sourceTree = "<group>"; };
 		3B7ADA12248938D000CA5AA3 /* TextureSamplingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextureSamplingViewController.m; sourceTree = "<group>"; };
 		3B7ADA13248938D000CA5AA3 /* TextureSampling.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = TextureSampling.metal; sourceTree = "<group>"; };
 		3B7ADA14248938D000CA5AA3 /* TextureSamplingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextureSamplingViewController.xib; sourceTree = "<group>"; };
@@ -118,6 +121,8 @@
 			children = (
 				3B6CB7042487A5A20094E14A /* MetalUtils.h */,
 				3B6CB7052487A5A20094E14A /* MetalUtils.m */,
+				3B7094C2248D66D9003CE5B6 /* MetalMatrix.h */,
+				3B7094C3248D66D9003CE5B6 /* MetalMatrix.m */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -250,6 +255,7 @@
 				3B6CB70E2487ABD90094E14A /* DrawImage.metal in Sources */,
 				3BA01F242482CFAD002F82DF /* ViewController.m in Sources */,
 				3B7B70D02483D7A000A0D86B /* Triangle.metal in Sources */,
+				3B7094C4248D66D9003CE5B6 /* MetalMatrix.m in Sources */,
 				3B7ADA1D2489390B00CA5AA3 /* FilterChainViewController.m in Sources */,
 				3B7ADA16248938D000CA5AA3 /* TextureSamplingViewController.m in Sources */,
 				3B6CB7062487A5A20094E14A /* MetalUtils.m in Sources */,
