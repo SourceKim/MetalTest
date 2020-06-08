@@ -1,3 +1,6 @@
-[submodule "MetalTest/MetalTest/src/utils/MetalMatrix"]
-	path = MetalTest/MetalTest/src/utils/MetalMatrix
-	url = /Users/kim/MyGithub/MetalMatrix
+[submodule "MetalTest/MetalTest/src/utils/MetalMatrixKit"]
+	path = MetalTest/MetalTest/src/utils/MetalMatrixKit
+	url = git@github.com:SourceKim/MetalMatrix.git
+[submodule "MetalMatrix"]
+	path = MetalMatrix
+	url = git@github.com:SourceKim/MetalMatrix.git

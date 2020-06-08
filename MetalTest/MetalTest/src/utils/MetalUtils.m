@@ -9,6 +9,19 @@
 
 @implementation MetalUtils
 
++ (nullable id<MTLTexture>)createDepthStencilTexture: (id<MTLDevice>)device
+                                           WithWidth: (size_t)width
+                                          withHeight: (size_t)height {
+    
+    MTLTextureDescriptor *texDescriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat: MTLPixelFormatDepth32Float width: width height: height mipmapped: false];
+    texDescriptor.usage = MTLTextureUsageRenderTarget;
+    texDescriptor.storageMode = MTLStorageModePrivate;
+    
+    id<MTLTexture> texture = [device newTextureWithDescriptor: texDescriptor];
+    
+    return texture;
+}
+
 + (nullable id<MTLTexture>)createEmptyTexture: (id<MTLDevice>)device
                                     WithWidth: (size_t)width
                                    withHeight: (size_t)height

@@ -32,6 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
                                              device: (id<MTLDevice>)device
                                               usage: (MTLTextureUsage)usage;
 
++ (nullable id<MTLTexture>)createDepthStencilTexture: (id<MTLDevice>)device
+                                           WithWidth: (size_t)width
+                                          withHeight: (size_t)height;
+
 @end
 
 NS_ASSUME_NONNULL_END
