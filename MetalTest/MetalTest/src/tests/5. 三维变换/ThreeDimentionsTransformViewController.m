@@ -62,6 +62,8 @@ static const UInt32 indices[] = {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _cameraDistance = 2;
+    
     _dis = [CADisplayLink displayLinkWithTarget: self selector: @selector(rotateCamera)];
 }
 
@@ -76,8 +78,6 @@ static const UInt32 indices[] = {
     [self setupIndexBuffer];
     
     _modelMatrix = [MetalMatrix mm_identity];
-    
-    _cameraDistance = 2;
     
     _viewMatrix = [MetalMatrix mm_lookAtWithEyeX: 0
                                         withEyeY: 0
