@@ -35,7 +35,7 @@ NSString * const kCellId = @"cellId";
                     @{@"2. 画一张图片": @"DrawImageViewController"},
                     @{@"3. 纹理采样参数详解": @"TextureSamplingViewController"},
                     @{@"4. 滤镜链": @"FilterChainViewController"},
-                    @{@"5. 三维变换": @"ThreeDimentionTransformViewController"},
+                    @{@"5. 三维变换": @"ThreeDimentionsTransformViewController"},
                     @{@"6. 旋转的立方体": @"RotatingCubeViewController"},
                     @{@"7. 渲染摄像头采集数据（CVOpenGLESTextureCacheRef）": @"RenderCameraBufferViewController"},
                     @{@"8. 渲染摄像头采集的 YUV（YCbCr）数据": @"RenderCameraYUVBufferViewController"},
