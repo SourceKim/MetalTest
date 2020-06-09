@@ -22,9 +22,6 @@
 		3B7ADA2424893B7900CA5AA3 /* FilterChain.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3B7ADA2324893B7900CA5AA3 /* FilterChain.metal */; };
 		3B7B70CD2483D06400A0D86B /* TriangleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7B70CC2483D06400A0D86B /* TriangleViewController.m */; };
 		3B7B70D02483D7A000A0D86B /* Triangle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3B7B70CF2483D7A000A0D86B /* Triangle.metal */; };
-		3B7D32D5248E92BC002774CE /* MetalMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D32D1248E92BC002774CE /* MetalMatrix.m */; };
-		3B7D32D6248E92BC002774CE /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D32D2248E92BC002774CE /* LICENSE */; };
-		3B7D32D7248E92BC002774CE /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3B7D32D3248E92BC002774CE /* README.md */; };
 		3BA01F1E2482CFAD002F82DF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA01F1D2482CFAD002F82DF /* AppDelegate.m */; };
 		3BA01F242482CFAD002F82DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA01F232482CFAD002F82DF /* ViewController.m */; };
 		3BA01F292482CFB2002F82DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BA01F282482CFB2002F82DF /* Assets.xcassets */; };
@@ -32,6 +29,11 @@
 		3BD530E5248E444500E11997 /* RotatingCubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD530E3248E444500E11997 /* RotatingCubeViewController.m */; };
 		3BD530E6248E444500E11997 /* RotatingCubeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BD530E4248E444500E11997 /* RotatingCubeViewController.xib */; };
 		3BD530E8248E445300E11997 /* RotatingCube.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3BD530E7248E445300E11997 /* RotatingCube.metal */; };
+		3BD530EC248F3F5B00E11997 /* RenderCameraBGRAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD530EB248F3F5B00E11997 /* RenderCameraBGRAViewController.m */; };
+		3BD530EE248F619D00E11997 /* RenderCameraBGRA.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3BD530ED248F619D00E11997 /* RenderCameraBGRA.metal */; };
+		3BD530FC248F68D700E11997 /* MetalMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD530F8248F68D700E11997 /* MetalMatrix.m */; };
+		3BD530FD248F68D700E11997 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 3BD530F9248F68D700E11997 /* LICENSE */; };
+		3BD530FE248F68D700E11997 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3BD530FA248F68D700E11997 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,10 +58,6 @@
 		3B7B70CB2483D06400A0D86B /* TriangleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TriangleViewController.h; sourceTree = "<group>"; };
 		3B7B70CC2483D06400A0D86B /* TriangleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TriangleViewController.m; sourceTree = "<group>"; };
 		3B7B70CF2483D7A000A0D86B /* Triangle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Triangle.metal; sourceTree = "<group>"; };
-		3B7D32D1248E92BC002774CE /* MetalMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalMatrix.m; sourceTree = "<group>"; };
-		3B7D32D2248E92BC002774CE /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		3B7D32D3248E92BC002774CE /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3B7D32D4248E92BC002774CE /* MetalMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalMatrix.h; sourceTree = "<group>"; };
 		3BA01F192482CFAD002F82DF /* MetalTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BA01F1C2482CFAD002F82DF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3BA01F1D2482CFAD002F82DF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -72,6 +70,13 @@
 		3BD530E3248E444500E11997 /* RotatingCubeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotatingCubeViewController.m; sourceTree = "<group>"; };
 		3BD530E4248E444500E11997 /* RotatingCubeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RotatingCubeViewController.xib; sourceTree = "<group>"; };
 		3BD530E7248E445300E11997 /* RotatingCube.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = RotatingCube.metal; sourceTree = "<group>"; };
+		3BD530EA248F3F5B00E11997 /* RenderCameraBGRAViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderCameraBGRAViewController.h; sourceTree = "<group>"; };
+		3BD530EB248F3F5B00E11997 /* RenderCameraBGRAViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderCameraBGRAViewController.m; sourceTree = "<group>"; };
+		3BD530ED248F619D00E11997 /* RenderCameraBGRA.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = RenderCameraBGRA.metal; sourceTree = "<group>"; };
+		3BD530F8248F68D700E11997 /* MetalMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetalMatrix.m; sourceTree = "<group>"; };
+		3BD530F9248F68D700E11997 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		3BD530FA248F68D700E11997 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3BD530FB248F68D700E11997 /* MetalMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MetalMatrix.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +153,7 @@
 		3B7B70C92483CFF100A0D86B /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				3B7D32D0248E92BC002774CE /* MetalMatrix */,
+				3BD530F7248F68D700E11997 /* MetalMatrix */,
 				3B4DB89F248E2400004E14ED /* MetalUtils.h */,
 				3B4DB8A0248E2400004E14ED /* MetalUtils.m */,
 			);
@@ -164,6 +169,7 @@
 				3B7ADA19248938DF00CA5AA3 /* 4. Metal 滤镜链 */,
 				3B4DB897248E0E31004E14ED /* 5. 三维变换 */,
 				3BD530E1248E442100E11997 /* 6. 旋转的立方体 */,
+				3BD530E9248F3C2C00E11997 /* 7. 渲染摄像头采集的数据（CVMetalTextureCache） */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -176,18 +182,6 @@
 				3B7B70CF2483D7A000A0D86B /* Triangle.metal */,
 			);
 			path = "1. 三角形";
-			sourceTree = "<group>";
-		};
-		3B7D32D0248E92BC002774CE /* MetalMatrix */ = {
-			isa = PBXGroup;
-			children = (
-				3B7D32D1248E92BC002774CE /* MetalMatrix.m */,
-				3B7D32D2248E92BC002774CE /* LICENSE */,
-				3B7D32D3248E92BC002774CE /* README.md */,
-				3B7D32D4248E92BC002774CE /* MetalMatrix.h */,
-			);
-			name = MetalMatrix;
-			path = ../../../../MetalMatrix;
 			sourceTree = "<group>";
 		};
 		3BA01F102482CFAD002F82DF = {
@@ -231,6 +225,28 @@
 				3BD530E7248E445300E11997 /* RotatingCube.metal */,
 			);
 			path = "6. 旋转的立方体";
+			sourceTree = "<group>";
+		};
+		3BD530E9248F3C2C00E11997 /* 7. 渲染摄像头采集的数据（CVMetalTextureCache） */ = {
+			isa = PBXGroup;
+			children = (
+				3BD530EA248F3F5B00E11997 /* RenderCameraBGRAViewController.h */,
+				3BD530EB248F3F5B00E11997 /* RenderCameraBGRAViewController.m */,
+				3BD530ED248F619D00E11997 /* RenderCameraBGRA.metal */,
+			);
+			path = "7. 渲染摄像头采集的数据（CVMetalTextureCache）";
+			sourceTree = "<group>";
+		};
+		3BD530F7248F68D700E11997 /* MetalMatrix */ = {
+			isa = PBXGroup;
+			children = (
+				3BD530F8248F68D700E11997 /* MetalMatrix.m */,
+				3BD530F9248F68D700E11997 /* LICENSE */,
+				3BD530FA248F68D700E11997 /* README.md */,
+				3BD530FB248F68D700E11997 /* MetalMatrix.h */,
+			);
+			name = MetalMatrix;
+			path = ../../../../MetalMatrix;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,10 +309,10 @@
 				3B7ADA18248938D000CA5AA3 /* TextureSamplingViewController.xib in Resources */,
 				3B4DB89C248E0E5E004E14ED /* ThreeDimentionsTransformViewController.xib in Resources */,
 				3B6CB70C2487A8050094E14A /* avatar.JPG in Resources */,
-				3B7D32D6248E92BC002774CE /* LICENSE in Resources */,
+				3BD530FD248F68D700E11997 /* LICENSE in Resources */,
 				3BD530E6248E444500E11997 /* RotatingCubeViewController.xib in Resources */,
 				3B7ADA1E2489390B00CA5AA3 /* FilterChainViewController.xib in Resources */,
-				3B7D32D7248E92BC002774CE /* README.md in Resources */,
+				3BD530FE248F68D700E11997 /* README.md in Resources */,
 				3BA01F292482CFB2002F82DF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,12 +326,14 @@
 			files = (
 				3B7B70CD2483D06400A0D86B /* TriangleViewController.m in Sources */,
 				3B6CB70E2487ABD90094E14A /* DrawImage.metal in Sources */,
+				3BD530EE248F619D00E11997 /* RenderCameraBGRA.metal in Sources */,
 				3B4DB89B248E0E5E004E14ED /* ThreeDimentionsTransformViewController.m in Sources */,
 				3BA01F242482CFAD002F82DF /* ViewController.m in Sources */,
 				3B7B70D02483D7A000A0D86B /* Triangle.metal in Sources */,
+				3BD530FC248F68D700E11997 /* MetalMatrix.m in Sources */,
 				3B7ADA1D2489390B00CA5AA3 /* FilterChainViewController.m in Sources */,
+				3BD530EC248F3F5B00E11997 /* RenderCameraBGRAViewController.m in Sources */,
 				3B7ADA16248938D000CA5AA3 /* TextureSamplingViewController.m in Sources */,
-				3B7D32D5248E92BC002774CE /* MetalMatrix.m in Sources */,
 				3B7ADA17248938D000CA5AA3 /* TextureSampling.metal in Sources */,
 				3B4DB8A1248E2400004E14ED /* MetalUtils.m in Sources */,
 				3BA01F1E2482CFAD002F82DF /* AppDelegate.m in Sources */,
