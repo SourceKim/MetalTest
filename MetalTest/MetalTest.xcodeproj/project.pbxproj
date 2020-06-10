@@ -26,6 +26,8 @@
 		3BA01F242482CFAD002F82DF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA01F232482CFAD002F82DF /* ViewController.m */; };
 		3BA01F292482CFB2002F82DF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BA01F282482CFB2002F82DF /* Assets.xcassets */; };
 		3BA01F2F2482CFB2002F82DF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA01F2E2482CFB2002F82DF /* main.m */; };
+		3BB42A36248F90B3003C62B7 /* RenderCameraYUVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB42A35248F90B3003C62B7 /* RenderCameraYUVViewController.m */; };
+		3BB42A38248F90C5003C62B7 /* RenderCameraYUV.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3BB42A37248F90C5003C62B7 /* RenderCameraYUV.metal */; };
 		3BD530E5248E444500E11997 /* RotatingCubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD530E3248E444500E11997 /* RotatingCubeViewController.m */; };
 		3BD530E6248E444500E11997 /* RotatingCubeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BD530E4248E444500E11997 /* RotatingCubeViewController.xib */; };
 		3BD530E8248E445300E11997 /* RotatingCube.metal in Sources */ = {isa = PBXBuildFile; fileRef = 3BD530E7248E445300E11997 /* RotatingCube.metal */; };
@@ -66,6 +68,10 @@
 		3BA01F282482CFB2002F82DF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BA01F2D2482CFB2002F82DF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BA01F2E2482CFB2002F82DF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3BB42A34248F90B3003C62B7 /* RenderCameraYUVViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RenderCameraYUVViewController.h; sourceTree = "<group>"; };
+		3BB42A35248F90B3003C62B7 /* RenderCameraYUVViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RenderCameraYUVViewController.m; sourceTree = "<group>"; };
+		3BB42A37248F90C5003C62B7 /* RenderCameraYUV.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = RenderCameraYUV.metal; sourceTree = "<group>"; };
+		3BB42A39248F91EF003C62B7 /* YUV_To_RGB_Matrices_Vectors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YUV_To_RGB_Matrices_Vectors.h; sourceTree = "<group>"; };
 		3BD530E2248E444500E11997 /* RotatingCubeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotatingCubeViewController.h; sourceTree = "<group>"; };
 		3BD530E3248E444500E11997 /* RotatingCubeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotatingCubeViewController.m; sourceTree = "<group>"; };
 		3BD530E4248E444500E11997 /* RotatingCubeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RotatingCubeViewController.xib; sourceTree = "<group>"; };
@@ -156,6 +162,7 @@
 				3BD530F7248F68D700E11997 /* MetalMatrix */,
 				3B4DB89F248E2400004E14ED /* MetalUtils.h */,
 				3B4DB8A0248E2400004E14ED /* MetalUtils.m */,
+				3BB42A39248F91EF003C62B7 /* YUV_To_RGB_Matrices_Vectors.h */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -170,6 +177,7 @@
 				3B4DB897248E0E31004E14ED /* 5. 三维变换 */,
 				3BD530E1248E442100E11997 /* 6. 旋转的立方体 */,
 				3BD530E9248F3C2C00E11997 /* 7. 渲染摄像头采集的数据（CVMetalTextureCache） */,
+				3BB42A33248F907F003C62B7 /* 8. 渲染摄像头采集的 YUV 数据 */,
 			);
 			path = tests;
 			sourceTree = "<group>";
@@ -214,6 +222,16 @@
 				3BA01F2E2482CFB2002F82DF /* main.m */,
 			);
 			path = MetalTest;
+			sourceTree = "<group>";
+		};
+		3BB42A33248F907F003C62B7 /* 8. 渲染摄像头采集的 YUV 数据 */ = {
+			isa = PBXGroup;
+			children = (
+				3BB42A34248F90B3003C62B7 /* RenderCameraYUVViewController.h */,
+				3BB42A35248F90B3003C62B7 /* RenderCameraYUVViewController.m */,
+				3BB42A37248F90C5003C62B7 /* RenderCameraYUV.metal */,
+			);
+			path = "8. 渲染摄像头采集的 YUV 数据";
 			sourceTree = "<group>";
 		};
 		3BD530E1248E442100E11997 /* 6. 旋转的立方体 */ = {
@@ -326,6 +344,8 @@
 			files = (
 				3B7B70CD2483D06400A0D86B /* TriangleViewController.m in Sources */,
 				3B6CB70E2487ABD90094E14A /* DrawImage.metal in Sources */,
+				3BB42A38248F90C5003C62B7 /* RenderCameraYUV.metal in Sources */,
+				3BB42A36248F90B3003C62B7 /* RenderCameraYUVViewController.m in Sources */,
 				3BD530EE248F619D00E11997 /* RenderCameraBGRA.metal in Sources */,
 				3B4DB89B248E0E5E004E14ED /* ThreeDimentionsTransformViewController.m in Sources */,
 				3BA01F242482CFAD002F82DF /* ViewController.m in Sources */,
