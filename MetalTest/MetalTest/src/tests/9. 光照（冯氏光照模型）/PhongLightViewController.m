@@ -1,70 +1,129 @@
-////  RotatingCubeViewController.m
+////  PhongLightViewController.m
 //  MetalTest
 //
-//  Created by Su Jinjin on 2020/6/8.
+//  Created by Su Jinjin on 2020/6/10.
 //  Copyright © 2020 苏金劲. All rights reserved.
 //
 
-#import "RotatingCubeViewController.h"
+#import "PhongLightViewController.h"
 
 #import "MetalUtils.h"
 
 #import "MetalMatrix.h"
 
 static const float vertices[] = {
-    -1, 1, 1, 1, // 0
-    1, 1, 1, 1, // 1
-    1, -1, 1, 1, // 2
-    -1, -1, 1, 1, // 3
-    -1, 1, -1, 1, // 4
-    1, 1, -1, 1, // 5
-    1, -1, -1, 1, // 6
-    -1, -1, -1, 1 // 7
-};
-
-static const float vertexColor[] = {
-    1, 0, 0, 1, // 0
-    1, 1, 0, 1, // 1
-    1, 1, 1, 1, // 2
-    1, 0, 1, 1, // 3
-    0, 1, 0, 1, // 4
-    0, 1, 1, 1, // 5
-    0, 0, 1, 1, // 6
-    0, 0, 0, 1, // 7
-};
-
-static const UInt32 indices[] = {
+    
     // 正面
-    0, 1, 3,
-    1, 2, 3,
+    -1, 1, 1,// 0
+    1, 1, 1, // 1
+    -1, -1, 1, // 3
+    
+    1, 1, 1, // 1
+    1, -1, 1, // 2
+    -1, -1, 1, // 3
     
     // 右面
-    1, 2, 6,
-    1, 5, 6,
+    1, 1, 1, // 1
+    1, -1, 1, // 2
+    1, -1, -1, // 6
+    
+    1, 1, 1, // 1
+    1, 1, -1, // 5
+    1, -1, -1, // 6
     
     // 背面
-    4, 5, 7,
-    5, 6, 7,
+    -1, 1, -1, // 4
+    1, 1, -1, // 5
+    -1, -1, -1, // 7
+    
+    1, 1, -1, // 5
+    1, -1, -1, // 6
+    -1, -1, -1, // 7
     
     // 左面
-    3, 4, 7,
-    0, 3, 4,
+    -1, -1, 1, // 3
+    -1, 1, -1, // 4
+    -1, -1, -1, // 7
+    
+    -1, 1, 1,// 0
+    -1, -1, 1, // 3
+    -1, 1, -1, // 4
     
     // 上面
-    0, 1, 4,
-    1, 4, 5,
+    -1, 1, 1,// 0
+    1, 1, 1, // 1
+    -1, 1, -1, // 4
+   
+    1, 1, 1, // 1
+    -1, 1, -1, // 4
+    1, 1, -1, // 5
     
     // 下面
-    2, 3, 6,
-    3, 6, 7,
+    1, -1, 1, // 2
+    -1, -1, 1, // 3
+    1, -1, -1, // 6
+    
+    -1, -1, 1, // 3
+    1, -1, -1, // 6
+    -1, -1, -1, // 7
 };
 
+static const float normals[] = {
+    
+    // 正面
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    
+    // 右面
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    
+    // 背面
+    0, 0, -1,
+    0, 0, -1,
+    0, 0, -1,
+    0, 0, -1,
+    0, 0, -1,
+    0, 0, -1,
+    
+    // 左面
+    -1, 0, 0,
+    -1, 0, 0,
+    -1, 0, 0,
+    -1, 0, 0,
+    -1, 0, 0,
+    -1, 0, 0,
+    
+    // 上面
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    
+    // 下面
+    0, -1, 0,
+    0, -1, 0,
+    0, -1, 0,
+    0, -1, 0,
+    0, -1, 0,
+    0, -1, 0,
+};
 
-@interface RotatingCubeViewController ()
+@interface PhongLightViewController ()
 
 @end
 
-@implementation RotatingCubeViewController {
+@implementation PhongLightViewController {
     
     id<MTLDevice> _device;
     
@@ -82,10 +141,16 @@ static const UInt32 indices[] = {
     
     id<MTLBuffer> _indexBuffer;
     
-    simd_float4x4 _modelMatrix, _viewMatrix, _projectionMatrix;
+    simd_float4x4 _objModelMatrix, _cameraModelMatrix, _viewMatrix, _projectionMatrix;
     
     CADisplayLink *_dis;
     float _cameraDistance;
+    
+    
+    simd_float3 _objColor, _cameraColor;
+    simd_float3 _lightPos, _eyePos;
+    float _ambientStrength, _specularStrength;
+    
 }
 
 #pragma mark - Life Circle
@@ -96,6 +161,15 @@ static const UInt32 indices[] = {
     _cameraDistance = 10;
     
     _dis = [CADisplayLink displayLinkWithTarget: self selector: @selector(rotateCube)];
+    
+    _objColor = simd_make_float3(1, 0, 0);
+    _cameraColor = simd_make_float3(1, 1, 1);
+    
+    _lightPos = simd_make_float3(3, 3, 3);
+    _eyePos = simd_make_float3(0, 0, -_cameraDistance);
+    
+    _ambientStrength = 0.2;
+    _specularStrength = 0.5;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -107,13 +181,16 @@ static const UInt32 indices[] = {
     [self setupRenderPipeline];
     [self setupDepthStencilTexuture];
     [self setupDepthStencil];
-    [self setupIndexBuffer];
     
-    _modelMatrix = [MetalMatrix mm_identity];
+    _objModelMatrix = [MetalMatrix mm_identity];
     
-    _viewMatrix = [MetalMatrix mm_lookAtWithEyeX: 0
-                                        withEyeY: 0
-                                        withEyeZ: -_cameraDistance
+    simd_float4x4 cameraTranslate = [MetalMatrix mm_translate: _lightPos];
+    simd_float4x4 cameraScale = [MetalMatrix mm_scaleWithX: 0.5 withY: 0.5 withZ: 0.5];
+    _cameraModelMatrix = simd_mul(cameraTranslate, cameraScale);
+    
+    _viewMatrix = [MetalMatrix mm_lookAtWithEyeX: _eyePos.x
+                                        withEyeY: _eyePos.y
+                                        withEyeZ: _eyePos.z
                                      withCenterX: 0
                                      withCenterY: 0
                                      withCenterZ: 0
@@ -127,7 +204,6 @@ static const UInt32 indices[] = {
                                                    withNear: 0.1
                                                     withFar: 100];
     
-//    [self render];
     [_dis addToRunLoop: [NSRunLoop currentRunLoop] forMode: NSRunLoopCommonModes];
 }
 
@@ -135,8 +211,8 @@ static const UInt32 indices[] = {
 
 - (void)rotateCube {
     double time = [[NSDate date] timeIntervalSince1970];
-    float angle = sin(time);
-    _modelMatrix = [MetalMatrix mm_rotate: angle * 360 withX: 1 withY: 1 withZ: 1];
+    float angle = sin(time * 0.3);
+    _objModelMatrix = [MetalMatrix mm_rotate: angle * 360 withX: 1 withY: 1 withZ: 1];
     [self render];
 }
 
@@ -178,8 +254,8 @@ static const UInt32 indices[] = {
     
     id<MTLLibrary> library = [_device newDefaultLibrary];
     
-    id<MTLFunction> vertexFunc = [library newFunctionWithName: @"RotatingCubeVertexShader"];
-    id<MTLFunction> fragmentFunc = [library newFunctionWithName: @"RotatingCubeFragmentShader"];
+    id<MTLFunction> vertexFunc = [library newFunctionWithName: @"PhongLightVertexShader"];
+    id<MTLFunction> fragmentFunc = [library newFunctionWithName: @"PhongLightFragmentShader"];
     
     MTLRenderPipelineDescriptor *pipelineDescriptor = [MTLRenderPipelineDescriptor new];
     pipelineDescriptor.label = @"Render Pipeline";
@@ -211,13 +287,6 @@ static const UInt32 indices[] = {
     _depthStencilState = [_device newDepthStencilStateWithDescriptor: depthStencilDesc];
 }
 
-- (void)setupIndexBuffer {
-    
-    _indexBuffer = [_device newBufferWithBytes: indices
-                                        length: sizeof(indices)
-                                       options: MTLResourceStorageModeShared];
-}
-
 - (void)render {
     
     id<CAMetalDrawable> currentDrawable = [_layer nextDrawable];
@@ -227,7 +296,7 @@ static const UInt32 indices[] = {
     commandBuffer.label = @"Command Buffer";
     
     id<MTLRenderCommandEncoder> encoder = [commandBuffer renderCommandEncoderWithDescriptor: _renderTargetDesc];
-    encoder.label = @"Render Command Encoder";
+    encoder.label = @"Object Render Command Encoder";
     
     [encoder setViewport: (MTLViewport) {
         .originX = 0,
@@ -243,15 +312,32 @@ static const UInt32 indices[] = {
     // depth
     [encoder setDepthStencilState: _depthStencilState];
     
+    [self render_obj: encoder];
+    
+    [self render_camera: encoder];
+    
+    [encoder endEncoding];
+    
+    [commandBuffer presentDrawable: currentDrawable];
+    
+    [commandBuffer commit];
+}
+
+- (void)render_obj: (id<MTLRenderCommandEncoder>)encoder{
+    
+    bool needLight = true;
+    
+    [encoder pushDebugGroup: @"Obj Draw Call"];
+    
     [encoder setVertexBytes: vertices
                      length: sizeof(vertices)
                     atIndex: 0];
     
-    [encoder setVertexBytes: vertexColor
-                     length: sizeof(vertexColor)
+    [encoder setVertexBytes: normals
+                     length: sizeof(normals)
                     atIndex: 1];
     
-    [encoder setVertexBytes: &_modelMatrix
+    [encoder setVertexBytes: &_objModelMatrix
                      length: [MetalMatrix mm_matrixSize]
                     atIndex: 2];
     
@@ -263,17 +349,56 @@ static const UInt32 indices[] = {
                      length: [MetalMatrix mm_matrixSize]
                     atIndex: 4];
     
-    [encoder drawIndexedPrimitives: MTLPrimitiveTypeTriangle // Triangle
-                        indexCount: sizeof(indices) / sizeof(UInt32)
-                         indexType: MTLIndexTypeUInt32
-                       indexBuffer: _indexBuffer
-                 indexBufferOffset: 0];
+    [encoder setFragmentBytes: &_objColor length: sizeof(simd_float3) atIndex: 0];
+    [encoder setFragmentBytes: &needLight length: sizeof(bool) atIndex: 1];
+    [encoder setFragmentBytes: &_cameraColor length: sizeof(simd_float3) atIndex: 2];
+    [encoder setFragmentBytes: &_ambientStrength length: sizeof(float) atIndex: 3];
+    [encoder setFragmentBytes: &_lightPos length: sizeof(simd_float3) atIndex: 4];
+    [encoder setFragmentBytes: &_eyePos length: sizeof(simd_float3) atIndex: 5];
+    [encoder setFragmentBytes: &_specularStrength length: sizeof(float) atIndex: 6];
     
-    [encoder endEncoding];
+    [encoder drawPrimitives: MTLPrimitiveTypeTriangle
+                vertexStart: 0
+                vertexCount: 36];
     
-    [commandBuffer presentDrawable: currentDrawable];
+    [encoder popDebugGroup];
     
-    [commandBuffer commit];
+}
+
+- (void)render_camera: (id<MTLRenderCommandEncoder>)encoder {
+    
+    bool needLight = false;
+    
+    [encoder pushDebugGroup: @"Camera Draw Call"];
+    
+    [encoder setVertexBytes: vertices
+                     length: sizeof(vertices)
+                    atIndex: 0];
+    
+    [encoder setVertexBytes: normals
+                     length: sizeof(normals)
+                    atIndex: 1];
+    
+    [encoder setVertexBytes: &_cameraModelMatrix
+                     length: [MetalMatrix mm_matrixSize]
+                    atIndex: 2];
+    
+    [encoder setVertexBytes: &_viewMatrix
+                     length: [MetalMatrix mm_matrixSize]
+                    atIndex: 3];
+    
+    [encoder setVertexBytes: &_projectionMatrix
+                     length: [MetalMatrix mm_matrixSize]
+                    atIndex: 4];
+    
+    [encoder setFragmentBytes: &_cameraColor length: sizeof(simd_float3) atIndex: 0];
+    [encoder setFragmentBytes: &needLight length: sizeof(bool) atIndex: 1];
+    
+    [encoder drawPrimitives: MTLPrimitiveTypeTriangle
+                vertexStart: 0
+                vertexCount: 36];
+    
+    [encoder popDebugGroup];
 }
 
 @end
