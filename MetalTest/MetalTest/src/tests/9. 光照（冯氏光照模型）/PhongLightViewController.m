@@ -312,9 +312,9 @@ static const float normals[] = {
     // depth
     [encoder setDepthStencilState: _depthStencilState];
     
-    [self render_obj: encoder];
+    [self render_obj: encoder]; // 渲染旋转的物体
     
-    [self render_camera: encoder];
+    [self render_camera: encoder]; // 渲染光源
     
     [encoder endEncoding];
     
@@ -362,7 +362,6 @@ static const float normals[] = {
                 vertexCount: 36];
     
     [encoder popDebugGroup];
-    
 }
 
 - (void)render_camera: (id<MTLRenderCommandEncoder>)encoder {
