@@ -105,11 +105,20 @@
     
     id<MTLComputeCommandEncoder> encoder = [commandBuffer computeCommandEncoder];
     
+    [encoder setComputePipelineState: _computePipelineState];
+    
     [encoder setBuffer: _outputBuffer offset: 0 atIndex: 0];
     
     [encoder setBytes: &outSize length: sizeof(simd_uint2) atIndex: 1];
     
+    [encoder dispatchThreadgroups: _threadgroupsPerGrid threadsPerThreadgroup: _threadsPerThreadGroup];
+    
     [encoder endEncoding];
+    
+    
+    [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> _Nonnull cmd) {
+        NSLog(@"fin");
+    }];
     
     [commandBuffer commit];
     

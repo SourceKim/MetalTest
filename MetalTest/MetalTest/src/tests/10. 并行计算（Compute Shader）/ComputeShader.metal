@@ -8,6 +8,14 @@
 #include <metal_stdlib>
 using namespace metal;
 
+float2 mappedToMinus3To3(uint2 position, uint2 size) {
+    
+}
+
+bool isTopPartOfHeart(float2 mappedPosition) {
+    return true;
+}
+
 kernel
 void ComputeKernelShader(device uint *outBuffer [[ buffer(0) ]],
                          constant uint2 &outSize [[ buffer(1) ]],
@@ -17,6 +25,5 @@ void ComputeKernelShader(device uint *outBuffer [[ buffer(0) ]],
         return;
     }
     
-    outBuffer[position.y * outSize.x + position.x] = 128;
-    
+    outBuffer[0] = 128;
 }
