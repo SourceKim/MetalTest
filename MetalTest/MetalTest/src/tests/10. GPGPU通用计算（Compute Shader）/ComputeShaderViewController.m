@@ -46,10 +46,22 @@
     [self setupThreadGroups: _outW totalHeight: _outH];
     [self compute];
     
-    uint32_t *res = _outputBuffer.contents;
-    for (int i = 0; i < 10; i++) {
-        NSLog(@"mm - %d", res[i]);
+    for (NSUInteger y = 0; y < 3; y++) {
+        for (NSUInteger x = 0; x < 3; x++) {
+            [self showBufferContentWithX: x withY: y];
+        }
     }
+}
+
+#pragma mark - Result Verifying
+
+- (void)showBufferContentWithX: (NSUInteger)x
+                         withY: (NSUInteger)y {
+    
+    uint32_t *res = _outputBuffer.contents;
+    
+    uint32_t resOfIdx = res[y * _outW + x];
+    NSLog(@"The result of (%d, %d) is - %d", (int)x, (int)y, resOfIdx);
 }
 
 #pragma mark - Metal
@@ -84,7 +96,7 @@
     // Refer apple doc
     // https://developer.apple.com/documentation/metal/calculating_threadgroup_and_grid_sizes?language=objc
     
-    NSUInteger w = _computePipelineState.threadExecutionWidth; // 最大线程执行宽度
+    NSUInteger w = _computePipelineState.threadExecutionWidth; // 最有效率的线程执行宽度
     NSUInteger h = _computePipelineState.maxTotalThreadsPerThreadgroup / w; // 每个线程组最多的线程数量
     
     _threadsPerThreadGroup = MTLSizeMake(w,
@@ -92,9 +104,8 @@
                                          1);
     
     _threadgroupsPerGrid = MTLSizeMake((totalWidth + w - 1) / w,
-                                       (totalWidth + h - 1) / h,
+                                       (totalHeight + h - 1) / h,
                                        1);
-    
 }
 
 - (void)compute {
@@ -113,17 +124,16 @@
     
     [encoder dispatchThreadgroups: _threadgroupsPerGrid threadsPerThreadgroup: _threadsPerThreadGroup];
     
-    [encoder endEncoding];
+    [encoder endEncoding]; 
     
     
     [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> _Nonnull cmd) {
-        NSLog(@"fin");
+        NSLog(@"Finish Computing.");
     }];
     
     [commandBuffer commit];
     
     [commandBuffer waitUntilCompleted];
 }
-
 
 @end
