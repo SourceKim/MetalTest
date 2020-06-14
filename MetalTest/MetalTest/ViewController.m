@@ -41,7 +41,7 @@ NSString * const kCellId = @"cellId";
                     @{@"8. 渲染摄像头采集的 YUV（YCbCr）数据": @"RenderCameraYUVViewController"},
                     @{@"9. 光照（冯氏光照模型）": @"PhongLightViewController"},
                     @{@"10. 并行计算（Compute Shader）": @"ComputeShaderViewController"},
-                    @{@"11. 混合 blend": @"BlendViewController"},
+                    @{@"11. 混合 blend": @"BlendingViewController"},
                     ];
 }
 

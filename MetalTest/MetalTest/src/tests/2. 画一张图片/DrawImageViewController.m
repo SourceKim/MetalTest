@@ -165,7 +165,7 @@ static const UInt32 indices[] = {
     [encoder setFragmentTexture: _texutre
                         atIndex: 0];
     
-    [encoder drawIndexedPrimitives: MTLPrimitiveTypeTriangleStrip
+    [encoder drawIndexedPrimitives: MTLPrimitiveTypeTriangle
                         indexCount: 6
                          indexType: MTLIndexTypeUInt32
                        indexBuffer: _indexBuffer
